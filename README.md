@@ -17,3 +17,8 @@ options:
   -C CHDIR, --chdir CHDIR
                         Extract to this base directory.
 ```
+
+## Limitations
+
+- Decompression is unimplemented. Compressed files are extracted as is.
+- Empty folders are not extracted. Currently only files are extracted and their parent folders are created implicitly.
