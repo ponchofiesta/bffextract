@@ -19,9 +19,11 @@ class HuffmanDecompressor:
          self._tree = []
          self._symbol_size = 0
          self._symbol_eob = []
+         self._size = 0
 
     def decompress_stream(self, reader: typing.BinaryIO, writer: typing.BinaryIO, size: int):
         '''Decompress defined size of reader stream and writer extracted data to writer stream.'''
+        self._size = size
         self._parse_header(reader)
         self._decode(reader, writer)
 
@@ -76,9 +78,9 @@ class HuffmanDecompressor:
         byte = 0
         inlevelindex = 0
 
-        while (byte := reader.read(1)):
-            byte = byte2int(byte)
+        while self._total_read < self._size and (byte := reader.read(1)):
             self._total_read += 1
+            byte = byte2int(byte)
             for i in range(7, -1, -1):
                 code = (code << 1) | ((byte >> i) & 1)
                 if code >= self._inodesin[level]:
