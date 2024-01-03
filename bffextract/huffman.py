@@ -15,7 +15,6 @@ class HuffmanDecompressor:
          self._symbolsin = []
          self._tree = []
          self._symbol_size = 0
-         self._symbol_eob = 0
          self._size = 0
 
     def decompress_stream(self, reader: typing.BinaryIO, writer: typing.BinaryIO, size: int):
@@ -26,9 +25,8 @@ class HuffmanDecompressor:
 
     def _parse_header(self, reader: typing.BinaryIO):
         '''Parse compression header of file.'''
-        self._total_read = 0
         self._treelevels = ord(reader.read(1))
-        self._total_read += 1
+        self._total_read = 1
         self._inodesin = [0] * self._treelevels
         self._symbolsin = [0] * self._treelevels
         self._tree = [[]] * self._treelevels
@@ -47,14 +45,13 @@ class HuffmanDecompressor:
         self._symbolsin[self._treelevels] += 1
 
         for i in range(self._treelevels + 1):
-            symbol_eob = []
+            symbol = []
             for j in range(self._symbolsin[i]):
                 byte = reader.read(1)
-                symbol_eob.append(ord(byte))
-            self._tree[i] = symbol_eob
+                symbol.append(ord(byte))
+            self._tree[i] = symbol
             self._total_read += self._symbolsin[i]
 
-        self._symbol_eob = symbol_eob[-1].to_bytes(1, 'big')
         self._symbolsin[self._treelevels] += 1
 
         self._fill_inodesin(0)
