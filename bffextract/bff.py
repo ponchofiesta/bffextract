@@ -108,7 +108,6 @@ def extract_record(reader: typing.BinaryIO, name: str, size: int, decompress: bo
 
     with open(out_name, "wb") as writer:
         if decompress:
-            warn(f"Unimplemented: '{name}' is compressed but we cannot decompress.")
             decompress_stream(reader, writer, size)
         else:
             copy_stream(reader, writer, size)

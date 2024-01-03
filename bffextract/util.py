@@ -28,10 +28,3 @@ def copy_stream(reader: typing.BinaryIO, writer: typing.BinaryIO, size: int):
         writer.write(data)
         total += to_read
         to_read = min(1024, size - total)
-
-
-def byte2int(byte: bytes | int) -> int:
-    if type(byte) == int:
-        return byte
-    else:
-        return int.from_bytes(byte, "big")

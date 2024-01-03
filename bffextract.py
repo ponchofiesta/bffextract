@@ -47,7 +47,7 @@ def extract_file(reader: typing.BinaryIO, out_dir: str | os.PathLike):
     reader.seek(int(aligned_up - record_header.CompressedSize), 1)
 
     return True
- 
+
 
 if __name__ == '__main__':
 

@@ -20,5 +20,5 @@ options:
 
 ## Limitations
 
-- Decompression is unimplemented. Compressed files are extracted as is.
+- Decompression of compressed files is very slow.
 - Empty folders are not extracted. Currently only files are extracted and their parent folders are created implicitly.
